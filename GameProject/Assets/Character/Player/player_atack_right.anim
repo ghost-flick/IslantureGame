@@ -20,13 +20,17 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 948266577, guid: 8129db22787e29a41b5947aa955deae3, type: 3}
+      value: {fileID: 864173310, guid: 67bcb208b80cd5847bd2e96b4ea3a2e6, type: 3}
     - time: 0.1
-      value: {fileID: -1209489666, guid: 8129db22787e29a41b5947aa955deae3, type: 3}
+      value: {fileID: 1084389799, guid: 67bcb208b80cd5847bd2e96b4ea3a2e6, type: 3}
     - time: 0.2
-      value: {fileID: -1542200822, guid: 8129db22787e29a41b5947aa955deae3, type: 3}
+      value: {fileID: -660272442, guid: 67bcb208b80cd5847bd2e96b4ea3a2e6, type: 3}
     - time: 0.3
-      value: {fileID: 370835609, guid: 8129db22787e29a41b5947aa955deae3, type: 3}
+      value: {fileID: 923185026, guid: 67bcb208b80cd5847bd2e96b4ea3a2e6, type: 3}
+    - time: 0.4
+      value: {fileID: -1899354254, guid: 67bcb208b80cd5847bd2e96b4ea3a2e6, type: 3}
+    - time: 0.5
+      value: {fileID: -1054672959, guid: 67bcb208b80cd5847bd2e96b4ea3a2e6, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,16 +50,18 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 948266577, guid: 8129db22787e29a41b5947aa955deae3, type: 3}
-    - {fileID: -1209489666, guid: 8129db22787e29a41b5947aa955deae3, type: 3}
-    - {fileID: -1542200822, guid: 8129db22787e29a41b5947aa955deae3, type: 3}
-    - {fileID: 370835609, guid: 8129db22787e29a41b5947aa955deae3, type: 3}
+    - {fileID: 864173310, guid: 67bcb208b80cd5847bd2e96b4ea3a2e6, type: 3}
+    - {fileID: 1084389799, guid: 67bcb208b80cd5847bd2e96b4ea3a2e6, type: 3}
+    - {fileID: -660272442, guid: 67bcb208b80cd5847bd2e96b4ea3a2e6, type: 3}
+    - {fileID: 923185026, guid: 67bcb208b80cd5847bd2e96b4ea3a2e6, type: 3}
+    - {fileID: -1899354254, guid: 67bcb208b80cd5847bd2e96b4ea3a2e6, type: 3}
+    - {fileID: -1054672959, guid: 67bcb208b80cd5847bd2e96b4ea3a2e6, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4
+    m_StopTime: 0.6
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -82,7 +88,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.3
+  - time: 0.4
     functionName: EndSwordAttack
     data: 
     objectReferenceParameter: {fileID: 0}

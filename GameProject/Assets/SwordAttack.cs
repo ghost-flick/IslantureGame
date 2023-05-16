@@ -17,8 +17,8 @@ public class SwordAttack : MonoBehaviour
 
     private void Start()
     {
-        leftAttackOffset = new Vector2(0.1f, -0.05f);
-        rightAttackOffset = new Vector2(-0.1f, -0.05f);
+        leftAttackOffset = new Vector2(0.2f, -0.05f);
+        rightAttackOffset = new Vector2(-0.2f, -0.05f);
     }
 
     public void Attack()
