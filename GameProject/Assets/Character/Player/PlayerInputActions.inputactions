@@ -15,18 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "93696b66-713f-42b8-b281-6214f636d744",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Fire",
                     "type": "Button",
                     "id": "734a3357-5a37-4c12-a856-bfff28259a74",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "74603def-33c4-483f-b62d-7c7c1435e6bd",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -168,39 +168,6 @@
                 },
                 {
                     "name": "",
-                    "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
-                    "path": "<Pointer>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse;Touch",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3e5f5442-8668-4b27-a940-df99bad7e831",
-                    "path": "<Joystick>/{Hatswitch}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
@@ -251,6 +218,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c661974e-9d15-47b1-b7cb-843559195cf6",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
