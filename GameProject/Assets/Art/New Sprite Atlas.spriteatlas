@@ -2117,6 +2117,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8949490894579e9488e11d0c180f4a8d, type: 3}
   - {fileID: 21300000, guid: bff4ca086633399439ca5607516beec2, type: 3}
   - {fileID: 21300000, guid: 82ff6e089bf514d46b72fad4bbab74cd, type: 3}
+  - {fileID: 21300000, guid: 16ee8418612d33f45b2da2d468b9e03d, type: 3}
   - {fileID: 21300000, guid: b5cf84183fcbd2f48ac44355af0b58ab, type: 3}
   - {fileID: 21300000, guid: 085aa4183fb9a8147b48d780df06afb4, type: 3}
   - {fileID: 21300000, guid: e2d3661871926f840b6ea99add4173b5, type: 3}
@@ -2706,6 +2707,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 891f109f402a3204a84cae9a0898995c, type: 3}
   - {fileID: 21300000, guid: df15229fbcb7c3641b6addcefafeefd2, type: 3}
   - {fileID: 21300000, guid: aefe859f49bf7fb40825e38a9ddde426, type: 3}
+  - {fileID: -1792886646, guid: 01f4cc9fbd93da744a2aac126b5b9835, type: 3}
+  - {fileID: -1859631431, guid: 01f4cc9fbd93da744a2aac126b5b9835, type: 3}
   - {fileID: 21300000, guid: 0dc90f9fa17fff84caf297a885dd11f5, type: 3}
   - {fileID: 21300000, guid: 4b53d4af2e78c834285aeaf5cc3cc9f2, type: 3}
   - {fileID: 21300000, guid: b2f869af467693143a9bd244ef812bdd, type: 3}
@@ -4824,6 +4827,7 @@ SpriteAtlas:
   - Attack
   - Rain
   - Attack
+  - Thanks
   - SpriteInHand
   - BottomPreview
   - MageLime
@@ -5413,6 +5417,8 @@ SpriteAtlas:
   - Shuriken
   - Charge
   - SpriteSheet
+  - Idle_0
+  - Idle_1
   - Hit
   - Zhinja
   - Special1

@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DamageableObject : MonoBehaviour
 {
+    public UnityEvent eventOnDeath;
     private int health = 100;
     public bool targetable = false;
     public bool invulnerable = false;
@@ -99,5 +101,6 @@ public class DamageableObject : MonoBehaviour
     public void RemoveObject()
     {
         Destroy(gameObject);
+        eventOnDeath.Invoke();
     }
 }

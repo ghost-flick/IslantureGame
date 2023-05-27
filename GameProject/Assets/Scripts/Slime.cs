@@ -18,7 +18,7 @@ public class Slime : Enemy
     public bool attackingState = false;
     private Unity.Mathematics.Random random;
 
-    private void Awake()
+    private void Start()
     {
         SetupDamageableObject();
         noticeCollider = gameObject.transform.Find("NoticeCollider").GetComponent<BehaviorCollider>();

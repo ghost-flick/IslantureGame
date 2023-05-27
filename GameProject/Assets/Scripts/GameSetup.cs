@@ -8,5 +8,6 @@ public class GameSetup : MonoBehaviour
     void Start()
     {
         GameStateController.DialogMode = false;
+        GameStateController.NormalMode = true;
     }
 }

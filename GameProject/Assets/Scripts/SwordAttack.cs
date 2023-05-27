@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 public class SwordAttack : MonoBehaviour
 {
-    public int damage = 10;
+    public int damage = 20;
     public float knockbackForce = 50f;
     public Vector2 rightForce = new Vector2(1, -0.9f);
     public Vector2 leftForce = new Vector2(-1, -0.9f);

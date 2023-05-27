@@ -83,7 +83,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7509342837541616795
 Transform:
   m_ObjectHideFlags: 0
@@ -203,21 +203,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee93dd3eb4ceef489d5bc10810465d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  eventOnDeath:
+    m_PersistentCalls:
+      m_Calls: []
   targetable: 0
   invulnerable: 0
   healthBar: {fileID: 1897039495032414524}
+  healthUI: {fileID: 0}
+  gameInterface: {fileID: 0}
   canMove: 1
   maxHealth: 100
   damage: 1
   knockBackForce: 1
-  spriteRenderer: {fileID: 1079035472444160234}
-  noticeCollider: {fileID: 5147366370583601208}
-  attackCollider: {fileID: 2666352940229658039}
   moveSpeed: 0.001
-  chasingState: 0
   attackingState: 0
-  direction: {x: 0, y: 0, z: 0}
 --- !u!95 &4472806561810584493
 Animator:
   serializedVersion: 5

@@ -93,21 +93,30 @@ public class PlayerController : PlayerObj
 
     void OnMove(InputValue movementValue)
     {
+        if (!GameStateController.NormalMode)
+            return;
         movementInput = movementValue.Get<Vector2>();
     }
 
     void OnFire()
     {
+        if (!GameStateController.NormalMode)
+            return;
         animator.SetTrigger("swordAttack");
     }
 
     void OnInteract()
     {
         
-        if (!GameStateController.DialogMode)
+        if (GameStateController.NormalMode)
             interaction.Interact(lastXInput, lastYInput);
         else 
             actions.Invoke();
+    }
+
+    public void EnterDialog()
+    {
+        animator.SetBool("isMoving", false);
     }
 
     void SwordAttack()
