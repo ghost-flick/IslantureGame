@@ -6,48 +6,48 @@ using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class DamageableObject : MonoBehaviour
+public abstract class DamageableObject : MonoBehaviour
 {
     public UnityEvent eventOnDeath;
     private int health = 100;
     public bool targetable = false;
     public bool invulnerable = false;
     protected Animator animator;
+    protected Animator effectAnimator;
     protected Rigidbody2D rb;
     protected SpriteRenderer spriteRenderer;
-    public Image healthBar;
-    public GameObject healthUI;
-    public Canvas gameInterface;
+    private Image healthBarFill;
+    private GameObject healthUI;
+    [SerializeField] private Canvas gameInterface;
+    [SerializeField] private string deathAnimationEffect;
     public bool canMove = true;
 
     private static readonly int Defeated1 = Animator.StringToHash("Defeated");
     private static readonly int Hit1 = Animator.StringToHash("Hit");
     public float maxHealth = 100;
+    private bool processingColor;
+    public bool defeated;
 
 
     public void SetupDamageableObject()
     {
-        var ui = gameObject.GetComponentInChildren<Canvas>();
-        if (ui is not null)
-            gameInterface = ui;
+        if (gameInterface == null)
+            throw new Exception("Should assign in inspector");
         healthUI = gameInterface.transform.Find("HealthBar").gameObject;
         healthUI.SetActive(false);
+        healthBarFill = healthUI.transform.Find("HealthBarFill").GetComponent<Image>();
         animator = GetComponent<Animator>();
+        effectAnimator = transform.Find("Effects").GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public int Health
+    protected int Health
     {
         set
         {
             health = value;
-            if (Math.Abs(health - maxHealth) < 0.5)
-                healthUI.SetActive(false);
-            else
-            {
-                healthUI.SetActive(true);
-            }
+            healthUI.SetActive(!(Math.Abs(health - maxHealth) < 0.5));
             if (health <= 0)
             {
                 Defeated();
@@ -56,10 +56,36 @@ public class DamageableObject : MonoBehaviour
         get => health;
     }
 
+    public void SetHealth(int healthMax)
+    {
+        health = healthMax;
+        maxHealth = healthMax;
+    }
+
+    private IEnumerator ChangeSpriteRendererColor()
+    {
+        processingColor = true;
+        var color = new Color(1, 0.2f, 0.2f, 1);
+        var baseColor = spriteRenderer.color;
+        var difColor = (color - baseColor) / 4;
+        for (var i = 0; i < 3; i++)
+        {
+            spriteRenderer.color = color;
+            color -= difColor;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        spriteRenderer.color = baseColor;
+
+        processingColor = false;
+    }
+
     public void ReceiveHit(int damage, Vector2 knockBackForce)
     {
         if (!invulnerable)
         {
+            if (!processingColor)
+                StartCoroutine(ChangeSpriteRendererColor());
             Health -= damage;
         }
         animator.SetTrigger(Hit1);
@@ -78,8 +104,8 @@ public class DamageableObject : MonoBehaviour
 
     public void UpdateHealthBar()
     {
-        if (healthBar is not null)
-            healthBar.fillAmount = health / maxHealth;
+        if (healthBarFill is not null)
+            healthBarFill.fillAmount = health / maxHealth;
     }
 
     public void LockMovement()
@@ -94,8 +120,9 @@ public class DamageableObject : MonoBehaviour
 
     private void Defeated()
     {
-        animator.SetTrigger(Defeated1);
-        canMove = false;
+        defeated = true;
+        animator.Play("defeated");
+        effectAnimator.Play(deathAnimationEffect);
     }
 
     public void RemoveObject()

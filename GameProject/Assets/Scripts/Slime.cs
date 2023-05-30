@@ -7,102 +7,76 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = Unity.Mathematics.Random;
 
-public class Slime : Enemy
+public class Slime : Enemy, IBehaviour
 {
-    protected BehaviorCollider noticeCollider;
-    protected BehaviorCollider attackCollider;
     protected Vector3 direction;
-    
     public float moveSpeed;
-    private bool chasingState = false;
+    public bool chasingState = false;
     public bool attackingState = false;
     private Unity.Mathematics.Random random;
+    [SerializeField] private PlayerController player;
+    private static readonly int Attack = Animator.StringToHash("Attack");
+    private static readonly int Move = Animator.StringToHash("Move");
+    public bool processingChase;
 
-    private void Start()
+    public void Start()
     {
         SetupDamageableObject();
-        noticeCollider = gameObject.transform.Find("NoticeCollider").GetComponent<BehaviorCollider>();
-        attackCollider = gameObject.transform.Find("AttackCollider").GetComponent<BehaviorCollider>();
+        SetHealth(100);
         damage = 5;
         knockBackForce = 10f;
         moveSpeed = 500f;
     }
 
-    private void FixedUpdate()
+
+    public void ChangeState(int animationID, bool value)
     {
-        if (direction.x < 0)
+        if (animationID == Attack)
         {
-            spriteRenderer.flipX = true;
+            attackingState = value;
         }
-        else if (direction.x > 0)
+        else if (animationID == Move)
         {
-            spriteRenderer.flipX = false;
-        }
-        
-        if (attackCollider.playerInPosition)
-        {
-            animator.SetBool("Attack", true);
-        }
-        else
-        {
-            animator.SetBool("Attack", false);
-        }
-
-        if (noticeCollider.playerInPosition)
-        {
-            animator.SetBool("MakeMove", true);
-        }
-        else
-        {
-            animator.SetBool("MakeMove", false);
-        }
-
-        if (attackingState)
-            return;
-        if (chasingState)
-            ChasePlayer();
+            chasingState = value;
+            if (value && !processingChase)
+                StartCoroutine(ChasePlayer());
+        };
     }
-
-    public void StartChasingPlayer()
+    
+    private void CalculateDirection()
     {
-        chasingState = true;
+        direction = (player.transform.position - transform.position).normalized;
+        spriteRenderer.flipX = direction.x < 0;
     }
-
-    public void StopChasingPlayer()
+    
+    public IEnumerator ChasePlayer()
     {
-        chasingState = false;
-    }
+        processingChase = true;
+        while (chasingState)
+        {
+            if (attackingState)
+            {
+                animator.SetTrigger(Attack);
+                yield return new WaitForSeconds(2);
+                continue;
+            }
+            animator.SetTrigger(Move);
+            yield return new WaitForSeconds(1f);
+        }
 
-    public void StartAttackingPlayer()
-    {
-        attackingState = true;
-        AttackPlayer();
-    }
-
-    public void StopAttackingPlayer()
-    {
-        attackingState = false;
-    }
-
-    public void RandomizeNextMove()
-    {
-        animator.SetBool("MoveType", UnityEngine.Random.value > 0.5);
+        processingChase = false;
     }
 
     public void AttackPlayer()
     {
-        if (!attackingState)
-            return;
-        direction = (attackCollider.player.transform.position - transform.position).normalized;
-        rb.AddForce(direction * (moveSpeed) / 2);
+        CalculateDirection();
+        rb.AddForce(direction * (moveSpeed/2));
     }
 
-    public void ChasePlayer()
+    public void MoveToPlayer()
     {
-        if (!chasingState)
-            return;
-        direction = (noticeCollider.player.transform.position - transform.position).normalized;
-        rb.AddForce(direction * (moveSpeed * Time.deltaTime));
+        CalculateDirection();
+        rb.AddForce(direction * (moveSpeed/3));
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -110,13 +84,14 @@ public class Slime : Enemy
         var colObject = col.collider.GetComponent<PlayerObj>();
         if (colObject != null)
         {
-            var player = col.collider.GetComponent<PlayerObj>();
-            if (player != null)
+            var playerObj = col.collider.GetComponent<PlayerObj>();
+            if (playerObj != null)
             {
                 var slimePosition = transform.position;
-                var dir = (Vector2)(player.transform.position - slimePosition).normalized;
-                player.ReceiveHit(damage, dir * knockBackForce);
+                var dir = (Vector2)(playerObj.transform.position - slimePosition).normalized;
+                playerObj.ReceiveHit(damage, dir * knockBackForce);
             }
         }
     }
+
 }

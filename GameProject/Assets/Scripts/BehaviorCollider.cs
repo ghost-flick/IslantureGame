@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,24 +7,27 @@ using UnityEngine.Serialization;
 public class BehaviorCollider : MonoBehaviour
 {
     public bool playerInPosition = false;
-    public PlayerObj player;
+    private IBehaviour parent;
+    [SerializeField] private string animationBoolName;
+    private int animationID;
+
+    public void Start()
+    {
+        animationID = Animator.StringToHash(animationBoolName);
+        parent = transform.parent.GetComponent<IBehaviour>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player"))
             return;
-        var enterPlayer = other.GetComponent<PlayerObj>();
-        if (enterPlayer != null)
-        {
-            playerInPosition = true;
-            player = enterPlayer;
-        }
+        parent.ChangeState(animationID, true);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("Player"))
             return;
-        playerInPosition = false;
+        parent.ChangeState(animationID, false);
     }
 }

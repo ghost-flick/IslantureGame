@@ -3,106 +3,110 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = Unity.Mathematics.Random;
 
-public class Beast : Enemy
+public class Beast : Enemy, IBehaviour
 {
-    protected BehaviorCollider noticeCollider;
-    protected BehaviorCollider attackCollider;
     protected Vector3 direction;
-    
     public float moveSpeed;
-    private bool chasingState = false;
     public bool attackingState = false;
+    public bool chasingState = false;
     private Unity.Mathematics.Random random;
+    private float timePassed = 0;
+    [SerializeField] public PlayerController player;
+    private static readonly int Xdir = Animator.StringToHash("Xdir");
+    private static readonly int Ydir = Animator.StringToHash("Ydir");
+    private static readonly int Attack = Animator.StringToHash("Attack");
+    private static readonly int Move = Animator.StringToHash("Move");
+    private bool processingAttack;
+    private bool processingChase;
 
     private void Start()
     {
         SetupDamageableObject();
-        noticeCollider = gameObject.transform.Find("NoticeCollider").GetComponent<BehaviorCollider>();
-        attackCollider = gameObject.transform.Find("AttackCollider").GetComponent<BehaviorCollider>();
+        SetHealth(50);
         damage = 5;
         knockBackForce = 10f;
         moveSpeed = 500f;
-    }
-
-    private void FixedUpdate()
-    {
-        if (direction.x < 0)
-        {
-            spriteRenderer.flipX = true;
-        }
-        else if (direction.x > 0)
-        {
-            spriteRenderer.flipX = false;
-        }
         
-        if (attackCollider.playerInPosition)
+    }
+
+    public void ChangeState(int animationID, bool value)
+    {
+        animator.SetBool(animationID, value);
+        if (animationID == Attack)
         {
-            animator.SetBool("Attack", true);
+            attackingState = value;
+            if (value && !processingAttack)
+            {
+                StartCoroutine(AttackPlayer());
+            }
         }
-        else
+        else if (animationID == Move)
         {
-            animator.SetBool("Attack", false);
+            chasingState = value;
+            if (value && !processingChase)
+            {
+                chasingState = true;
+                StartCoroutine(ChasePlayer());
+            }
         }
-
-        if (noticeCollider.playerInPosition)
+    }
+    
+    public IEnumerator AttackPlayer()
+    {
+        processingAttack = true;
+        while (attackingState)
         {
-            animator.SetBool("MakeMove", true);
+            CalculateDirection();
+            SetAnimatorXY();
+            while (timePassed <= 0.5)
+            {
+                timePassed += Time.deltaTime;
+                rb.AddForce(direction * (moveSpeed * Time.deltaTime*5));
+                yield return new WaitForSeconds(0.001f);
+            }
+            timePassed = 0;
+            canMove = false;
+            yield return new WaitForSeconds(1);
+            canMove = true;
         }
-        else
+
+        processingAttack = false;
+    }
+
+    private void SetAnimatorXY()
+    {
+        animator.SetFloat(Xdir, direction.x);
+        animator.SetFloat(Ydir, direction.y);
+    }
+
+    private void CalculateDirection()
+    {
+        direction = (player.transform.position - transform.position).normalized;
+    }
+
+    public IEnumerator ChasePlayer()
+    {
+        processingChase = true;  
+        
+        while (chasingState)
         {
-            animator.SetBool("MakeMove", false);
+            if (attackingState || !canMove)
+            {
+                yield return new WaitForSeconds(1);
+                continue;
+            }
+            CalculateDirection();
+            SetAnimatorXY();
+            rb.AddForce(direction * (moveSpeed * Time.deltaTime));
+            yield return null;
         }
 
-        if (attackingState)
-            return;
-        if (chasingState)
-            ChasePlayer();
-    }
-
-    public void StartChasingPlayer()
-    {
-        chasingState = true;
-    }
-
-    public void StopChasingPlayer()
-    {
-        chasingState = false;
-    }
-
-    public void StartAttackingPlayer()
-    {
-        attackingState = true;
-        AttackPlayer();
-    }
-
-    public void StopAttackingPlayer()
-    {
-        attackingState = false;
-    }
-
-    public void RandomizeNextMove()
-    {
-        animator.SetBool("MoveType", UnityEngine.Random.value > 0.5);
-    }
-
-    public void AttackPlayer()
-    {
-        if (!attackingState)
-            return;
-        direction = (attackCollider.player.transform.position - transform.position).normalized;
-        rb.AddForce(direction * (moveSpeed) / 2);
-    }
-
-    public void ChasePlayer()
-    {
-        if (!chasingState)
-            return;
-        direction = (noticeCollider.player.transform.position - transform.position).normalized;
-        rb.AddForce(direction * (moveSpeed * Time.deltaTime));
+        processingChase = false;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -110,13 +114,19 @@ public class Beast : Enemy
         var colObject = col.collider.GetComponent<PlayerObj>();
         if (colObject != null)
         {
-            var player = col.collider.GetComponent<PlayerObj>();
-            if (player != null)
+            var playerObj = col.collider.GetComponent<PlayerObj>();
+            if (playerObj != null)
             {
                 var slimePosition = transform.position;
-                var dir = (Vector2)(player.transform.position - slimePosition).normalized;
-                player.ReceiveHit(damage, dir * knockBackForce);
+                var dir = (Vector2)(playerObj.transform.position - slimePosition).normalized;
+                playerObj.ReceiveHit(damage, dir * knockBackForce);
             }
         }
+    }
+
+
+    private void ProcessDefeat()
+    {
+        StopAllCoroutines();
     }
 }

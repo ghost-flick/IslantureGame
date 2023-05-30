@@ -27,8 +27,7 @@ public class PlayerController : PlayerObj
         swordAttack = GetComponentInChildren<SwordAttack>();
         interaction = GetComponentInChildren<Interaction>();
         SetupDamageableObject();
-        Health = 50;
-        maxHealth = 50;
+        SetHealth(50);
         
         targetable = true;
         invulnerable = false;
