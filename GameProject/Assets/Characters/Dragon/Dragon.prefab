@@ -304,6 +304,7 @@ MonoBehaviour:
   eventOnDeath:
     m_PersistentCalls:
       m_Calls: []
+  health: 100
   targetable: 0
   invulnerable: 0
   gameInterface: {fileID: 8458645655652265871}
@@ -311,12 +312,12 @@ MonoBehaviour:
   canMove: 1
   maxHealth: 100
   defeated: 0
+  lastDamagedTime: 0
   damage: 1
   knockBackForce: 1
   moveSpeed: 0
   attackingState: 0
   chasingState: 0
-  player: {fileID: 0}
   bigFireBall: {fileID: 2313905557825413171, guid: 8588e986428ac6240a0edc2c57d3f7bc, type: 3}
   littleFireBall: {fileID: 4805697405894455314, guid: 701752f07ccb89c4eb67ca4bcdb58fea, type: 3}
 --- !u!1 &2721417725055599564
@@ -644,7 +645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502403619393749328, guid: f4e70a401cf159d499502798383b1860, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5502403619393749328, guid: f4e70a401cf159d499502798383b1860, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

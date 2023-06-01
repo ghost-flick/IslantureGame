@@ -11,11 +11,8 @@ using Random = Unity.Mathematics.Random;
 public class Dragon : Enemy, IBehaviour
 {
     protected Vector3 direction;
-    public float moveSpeed;
     public bool attackingState = false;
     public bool chasingState = false;
-    private Unity.Mathematics.Random random;
-    [SerializeField] public PlayerController player;
     private static readonly int Xdir = Animator.StringToHash("Xdir");
     private static readonly int Ydir = Animator.StringToHash("Ydir");
     private static readonly int Attack = Animator.StringToHash("Attack");
@@ -29,6 +26,7 @@ public class Dragon : Enemy, IBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         SetupDamageableObject();
         SetHealth(200);
         damage = 2;
@@ -63,7 +61,7 @@ public class Dragon : Enemy, IBehaviour
     {
         StartCoroutine(AttackPlayer());
     }
-    
+
     public IEnumerator AttackPlayer()
     {
         while (attackingState)
@@ -84,21 +82,22 @@ public class Dragon : Enemy, IBehaviour
         SetAnimatorXY();
         baseRotation = Quaternion.Euler(0, 0, Vector2.Angle(direction, new Vector2(1, 0))
                                               * (direction.y >= 0 ? 1 : -1));
-        LaunchFireBall(littleFireBall, Quaternion.Euler(0,0,30));
-        LaunchFireBall(bigFireBall, Quaternion.Euler(0,0,0));
-        LaunchFireBall(littleFireBall, Quaternion.Euler(0,0,-30));
+        LaunchFireBall(littleFireBall, Quaternion.Euler(0, 0, 30));
+        LaunchFireBall(bigFireBall, Quaternion.Euler(0, 0, 0));
+        LaunchFireBall(littleFireBall, Quaternion.Euler(0, 0, -30));
     }
 
 
     public void LaunchFireBall(Object fireBallObject, Quaternion relativeRotation)
     {
-        GameObject newFireBall = Instantiate(fireBallObject, transform.position, relativeRotation * baseRotation) as GameObject;
+        GameObject newFireBall =
+            Instantiate(fireBallObject, transform.position, relativeRotation * baseRotation) as GameObject;
         if (newFireBall is null)
             throw new Exception("Can't initialize fireball");
         FireBall fireBall = newFireBall.GetComponent<FireBall>();
         fireBall.Setup(relativeRotation * direction);
     }
-    
+
     private void SetAnimatorXY()
     {
         animator.SetFloat(Xdir, direction.x);
@@ -112,8 +111,8 @@ public class Dragon : Enemy, IBehaviour
 
     public IEnumerator ChasePlayer()
     {
-        processingChase = true;  
-        
+        processingChase = true;
+
         while (chasingState)
         {
             CalculateDirection();
@@ -123,6 +122,7 @@ public class Dragon : Enemy, IBehaviour
                 yield return new WaitForSeconds(1);
                 continue;
             }
+
             rb.AddForce(direction * (moveSpeed * Time.deltaTime));
             yield return null;
         }
@@ -132,16 +132,12 @@ public class Dragon : Enemy, IBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        var colObject = col.collider.GetComponent<PlayerObj>();
-        if (colObject != null)
+        var playerObj = col.collider.GetComponent<PlayerObj>();
+        if (playerObj != null)
         {
-            var playerObj = col.collider.GetComponent<PlayerObj>();
-            if (playerObj != null)
-            {
-                var slimePosition = transform.position;
-                var dir = (Vector2)(playerObj.transform.position - slimePosition).normalized;
-                playerObj.ReceiveHit(damage, dir * knockBackForce);
-            }
+            var slimePosition = transform.position;
+            var dir = (Vector2)(playerObj.transform.position - slimePosition).normalized;
+            playerObj.ReceiveHit(damage, dir * knockBackForce);
         }
     }
 

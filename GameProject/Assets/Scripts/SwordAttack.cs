@@ -9,8 +9,6 @@ public class SwordAttack : MonoBehaviour
 {
     public int damage = 20;
     public float knockbackForce = 50f;
-    public Vector2 rightForce = new Vector2(1, -0.9f);
-    public Vector2 leftForce = new Vector2(-1, -0.9f);
     public LayerMask enemyLayers;
     private Vector2 rightAttackOffset = new Vector2(0.1f, -0.07f);
     private Vector2 leftAttackOffset = new Vector2(-0.1f, -0.07f);

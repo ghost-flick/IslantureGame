@@ -14,7 +14,6 @@ public class Npc : MonoBehaviour, IInteractable
 {
     [SerializeField] private Dialog currentDialog;
     [SerializeField] private Quest currentQuest;
-    [SerializeField] private QuestSystem questSystem;
     protected List<Dialog> commonDialogs;
     protected List<Dialog> defaultDialogs;
     protected List<Dialog> afterDialogs;
@@ -26,7 +25,6 @@ public class Npc : MonoBehaviour, IInteractable
     {
         rnd = new System.Random();
         InitializeDialogs();
-        DialogManager.Instance.orderedActions.AddListener(StartNewQuest);
     }
 
     private void InitializeDialogs()
@@ -49,11 +47,11 @@ public class Npc : MonoBehaviour, IInteractable
             if (currentQuest.isCompleted)
             {
                 awaitingQuest = false;
-                questSystem.HideQuest();
+                QuestSystem.Instance.HideQuest();
             }
             else
             {
-                DialogManager.Instance.ShowDialog(afterDialogs[dialogIndex-1]);
+                DialogManager.Instance.ShowDialog(afterDialogs[dialogIndex-1], null, null);
                 return;
             }
         }
@@ -70,13 +68,12 @@ public class Npc : MonoBehaviour, IInteractable
         }
         
         currentQuest = transform.Find(currentDialog.questToStartAfter)?.gameObject.GetComponent<Quest>();
-        DialogManager.Instance.ShowDialog(currentDialog);
+        DialogManager.Instance.ShowDialog(currentDialog, StartNewQuest, currentQuest);
     }
     
     public void StartNewQuest()
     {
         if (currentQuest is null) return;
         awaitingQuest = true;
-        questSystem.Quest = currentQuest; // here happens setting magic
     }
 }

@@ -133,4 +133,10 @@ public abstract class DamageableObject : MonoBehaviour
         Destroy(gameObject);
         eventOnDeath.Invoke();
     }
+
+    public IEnumerator RemoveLater()
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
+    }
 }

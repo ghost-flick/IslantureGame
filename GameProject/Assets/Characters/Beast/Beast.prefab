@@ -423,17 +423,20 @@ MonoBehaviour:
   eventOnDeath:
     m_PersistentCalls:
       m_Calls: []
+  health: 100
   targetable: 0
   invulnerable: 0
   gameInterface: {fileID: 3586398842742226913}
+  deathAnimationEffect: bloody_death
   canMove: 1
   maxHealth: 100
+  defeated: 0
+  lastDamagedTime: 0
   damage: 1
   knockBackForce: 1
   moveSpeed: 0
   attackingState: 0
   chasingState: 0
-  player: {fileID: 0}
 --- !u!1 &7011671068385265765
 GameObject:
   m_ObjectHideFlags: 0

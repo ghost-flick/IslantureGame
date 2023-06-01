@@ -10,17 +10,16 @@ using Random = Unity.Mathematics.Random;
 public class Slime : Enemy, IBehaviour
 {
     protected Vector3 direction;
-    public float moveSpeed;
     public bool chasingState = false;
     public bool attackingState = false;
     private Unity.Mathematics.Random random;
-    [SerializeField] private PlayerController player;
     private static readonly int Attack = Animator.StringToHash("Attack");
     private static readonly int Move = Animator.StringToHash("Move");
     public bool processingChase;
 
     public void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         SetupDamageableObject();
         SetHealth(100);
         damage = 5;
@@ -40,15 +39,17 @@ public class Slime : Enemy, IBehaviour
             chasingState = value;
             if (value && !processingChase)
                 StartCoroutine(ChasePlayer());
-        };
+        }
+
+        ;
     }
-    
+
     private void CalculateDirection()
     {
-        direction = (player.transform.position - transform.position).normalized;
+        direction = (player.position - transform.position).normalized;
         spriteRenderer.flipX = direction.x < 0;
     }
-    
+
     public IEnumerator ChasePlayer()
     {
         processingChase = true;
@@ -60,6 +61,7 @@ public class Slime : Enemy, IBehaviour
                 yield return new WaitForSeconds(2);
                 continue;
             }
+
             animator.SetTrigger(Move);
             yield return new WaitForSeconds(1f);
         }
@@ -70,28 +72,23 @@ public class Slime : Enemy, IBehaviour
     public void AttackPlayer()
     {
         CalculateDirection();
-        rb.AddForce(direction * (moveSpeed/2));
+        rb.AddForce(direction * (moveSpeed / 2));
     }
 
     public void MoveToPlayer()
     {
         CalculateDirection();
-        rb.AddForce(direction * (moveSpeed/3));
+        rb.AddForce(direction * (moveSpeed / 3));
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        var colObject = col.collider.GetComponent<PlayerObj>();
-        if (colObject != null)
+        var playerObj = col.collider.GetComponentInParent<PlayerObj>();
+        if (playerObj != null)
         {
-            var playerObj = col.collider.GetComponent<PlayerObj>();
-            if (playerObj != null)
-            {
-                var slimePosition = transform.position;
-                var dir = (Vector2)(playerObj.transform.position - slimePosition).normalized;
-                playerObj.ReceiveHit(damage, dir * knockBackForce);
-            }
+            var slimePosition = transform.position;
+            var dir = (Vector2)(playerObj.transform.position - slimePosition).normalized;
+            playerObj.ReceiveHit(damage, dir * knockBackForce);
         }
     }
-
 }

@@ -29,6 +29,11 @@ public class Dialog
         questToStartAfter = replicas.Last();
     }
 
+    public string GetQuestToStartAfter()
+    {
+        return questToStartAfter;
+    }
+
     private (string, string) GetNameAndReplica(string line, Dictionary<int, string> speakers)
     {
         var num = line.TakeLast(1).FirstOrDefault();

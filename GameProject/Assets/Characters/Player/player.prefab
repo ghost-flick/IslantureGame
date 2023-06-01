@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1537305843718809002}
   - component: {fileID: 7768241712691977820}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Interaction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +47,54 @@ MonoBehaviour:
   interactiveLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!1 &1079000669323840365
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8360675533340417217}
+  - component: {fileID: 772848945732201372}
+  m_Layer: 7
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8360675533340417217
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079000669323840365}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5039307745144452430}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &772848945732201372
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079000669323840365}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.00000059265284, y: -0.09096848}
+  m_Size: {x: 0.10112038, y: 0.025735084}
+  m_Direction: 1
 --- !u!1 &5039307744033147226
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,11 +107,10 @@ GameObject:
   - component: {fileID: 5039307744033147216}
   - component: {fileID: 5039307744033147231}
   - component: {fileID: 5039307744033147230}
-  - component: {fileID: 6983988477723753699}
   - component: {fileID: 5039307744033147228}
   - component: {fileID: 6995306831961013488}
   - component: {fileID: 1894671163}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -86,6 +133,8 @@ Transform:
   - {fileID: 1537305843718809002}
   - {fileID: 6055185678484765480}
   - {fileID: 5979594268420379840}
+  - {fileID: 8360675533340417217}
+  - {fileID: 6073240218858912983}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
@@ -192,22 +241,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &6983988477723753699
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5039307744033147226}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.000076767676, y: -0.08863533}
-  m_Size: {x: 0.09989627, y: 0.019454839}
-  m_Direction: 1
 --- !u!95 &5039307744033147228
 Animator:
   serializedVersion: 5
@@ -289,6 +322,7 @@ MonoBehaviour:
   lastXWeapon: 1
   lastYWeapon: 0
   fireWeapon: {fileID: 4881376144907605798, guid: 208993a908e514243aba587a1abf5fd9, type: 3}
+  akWeapon: {fileID: 0}
   weaponMode: 0
 --- !u!82 &1894671163
 AudioSource:
@@ -396,7 +430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5039307745214832188}
   - component: {fileID: 5039307745214832189}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SwordAttack
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -432,8 +466,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   knockbackForce: 50
-  rightForce: {x: 1, y: -0.9}
-  leftForce: {x: -1, y: -0.9}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 8
@@ -447,7 +479,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6055185678484765480}
   - component: {fileID: 5632019385592184251}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: QuestSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,6 +518,54 @@ MonoBehaviour:
   questTitleText: {fileID: 0}
   questInfoText: {fileID: 0}
   questProgress: {fileID: 0}
+--- !u!1 &9074534985156304876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6073240218858912983}
+  - component: {fileID: 4328960265841574396}
+  m_Layer: 7
+  m_Name: ColliderTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6073240218858912983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9074534985156304876}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5039307745144452430}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &4328960265841574396
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9074534985156304876}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00008508563, y: -0.011215925}
+  m_Size: {x: 0.09574062, y: 0.17346942}
+  m_Direction: 0
 --- !u!1001 &2208944965397075344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -580,6 +660,10 @@ PrefabInstance:
     - target: {fileID: 5563696106857116749, guid: f4e70a401cf159d499502798383b1860, type: 3}
       propertyPath: m_Name
       value: Effects
+      objectReference: {fileID: 0}
+    - target: {fileID: 5563696106857116749, guid: f4e70a401cf159d499502798383b1860, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4e70a401cf159d499502798383b1860, type: 3}

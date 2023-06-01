@@ -207,17 +207,20 @@ MonoBehaviour:
   eventOnDeath:
     m_PersistentCalls:
       m_Calls: []
+  health: 100
   targetable: 0
   invulnerable: 0
   gameInterface: {fileID: 8485332051675698433}
+  deathAnimationEffect: 
   canMove: 1
   maxHealth: 100
+  defeated: 0
+  lastDamagedTime: 0
   damage: 1
   knockBackForce: 1
   moveSpeed: 10
   chasingState: 0
   attackingState: 0
-  player: {fileID: 0}
   processingChase: 0
 --- !u!95 &4472806561810584493
 Animator:

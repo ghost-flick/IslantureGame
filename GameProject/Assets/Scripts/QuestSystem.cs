@@ -10,6 +10,12 @@ public class QuestSystem : MonoBehaviour
     [SerializeField] private TMP_Text questTitleText;
     [SerializeField] private TMP_Text questInfoText;
     [SerializeField] private TMP_Text questProgress;
+    public static QuestSystem Instance { get; private set; }
+
+    public void Start()
+    {
+        Instance = this;
+    }
 
     [SerializeField] public Quest Quest
     {

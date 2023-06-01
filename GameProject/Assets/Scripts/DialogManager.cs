@@ -19,6 +19,7 @@ public class DialogManager : MonoBehaviour
     private Dialog dialog;
     private IEnumerator replicasFlow;
     public UnityEvent orderedActions;
+    private Quest quest;
     
     
     public void Awake()
@@ -26,8 +27,12 @@ public class DialogManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ShowDialog(Dialog d)
+    public void ShowDialog(Dialog d, UnityAction actionOnEnd, Quest questToStartOnEnd)
     {
+        orderedActions.RemoveAllListeners();
+        quest = questToStartOnEnd;
+        if (actionOnEnd is not null)
+            orderedActions.AddListener(actionOnEnd);
         dialogBox.SetActive(true);
         GameStateController.EnterDialogMode();
         dialog = d;
@@ -46,7 +51,9 @@ public class DialogManager : MonoBehaviour
         {
             if (replicaIndex >= replicas.Count)
             {
-                orderedActions.Invoke();
+                if (quest is not null)
+                    QuestSystem.Instance.Quest = quest; // set magic
+                orderedActions?.Invoke();
                 replicaIndex = 0;
                 GameStateController.LeaveDialogMode();
                 dialogBox.SetActive(false);

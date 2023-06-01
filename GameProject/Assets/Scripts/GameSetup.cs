@@ -10,11 +10,6 @@ public class GameSetup : MonoBehaviour
     {
         GameStateController.DialogMode = false;
         GameStateController.NormalMode = true;
-        // InitializeFirstDialog();
+        // Physics2D.SyncTransforms();
     }
-
-    // public IEnumerator InitializeFirstDialog()
-    // {
-    //     
-    // }
 }

@@ -34,7 +34,7 @@ public class FireBall : MonoBehaviour
     {   
         if (((1 << collision.gameObject.layer) & enemyLayer) != 0)
             return;
-        var player = collision.gameObject.GetComponent<PlayerController>();
+        var player = collision.gameObject.GetComponentInParent<PlayerController>();
         rb.velocity = Vector2.zero;
         animator.SetTrigger(Gotcha);
         if (player is not null)

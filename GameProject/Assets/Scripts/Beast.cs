@@ -11,12 +11,9 @@ using Random = Unity.Mathematics.Random;
 public class Beast : Enemy, IBehaviour
 {
     protected Vector3 direction;
-    public float moveSpeed;
     public bool attackingState = false;
     public bool chasingState = false;
-    private Unity.Mathematics.Random random;
     private float timePassed = 0;
-    [SerializeField] public PlayerController player;
     private static readonly int Xdir = Animator.StringToHash("Xdir");
     private static readonly int Ydir = Animator.StringToHash("Ydir");
     private static readonly int Attack = Animator.StringToHash("Attack");
@@ -26,12 +23,12 @@ public class Beast : Enemy, IBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         SetupDamageableObject();
         SetHealth(50);
         damage = 5;
         knockBackForce = 10f;
         moveSpeed = 500f;
-        
     }
 
     public void ChangeState(int animationID, bool value)
@@ -55,7 +52,7 @@ public class Beast : Enemy, IBehaviour
             }
         }
     }
-    
+
     public IEnumerator AttackPlayer()
     {
         processingAttack = true;
@@ -66,9 +63,10 @@ public class Beast : Enemy, IBehaviour
             while (timePassed <= 0.5)
             {
                 timePassed += Time.deltaTime;
-                rb.AddForce(direction * (moveSpeed * Time.deltaTime*5));
+                rb.AddForce(direction * (moveSpeed * Time.deltaTime * 5));
                 yield return new WaitForSeconds(0.001f);
             }
+
             timePassed = 0;
             canMove = false;
             yield return new WaitForSeconds(1);
@@ -91,8 +89,8 @@ public class Beast : Enemy, IBehaviour
 
     public IEnumerator ChasePlayer()
     {
-        processingChase = true;  
-        
+        processingChase = true;
+
         while (chasingState)
         {
             if (attackingState || !canMove)
@@ -100,6 +98,7 @@ public class Beast : Enemy, IBehaviour
                 yield return new WaitForSeconds(1);
                 continue;
             }
+
             CalculateDirection();
             SetAnimatorXY();
             rb.AddForce(direction * (moveSpeed * Time.deltaTime));
@@ -111,16 +110,12 @@ public class Beast : Enemy, IBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        var colObject = col.collider.GetComponent<PlayerObj>();
-        if (colObject != null)
+        var playerObj = col.collider.GetComponentInParent<PlayerObj>();
+        if (playerObj != null)
         {
-            var playerObj = col.collider.GetComponent<PlayerObj>();
-            if (playerObj != null)
-            {
-                var slimePosition = transform.position;
-                var dir = (Vector2)(playerObj.transform.position - slimePosition).normalized;
-                playerObj.ReceiveHit(damage, dir * knockBackForce);
-            }
+            var slimePosition = transform.position;
+            var dir = (Vector2)(playerObj.transform.position - slimePosition).normalized;
+            playerObj.ReceiveHit(damage, dir * knockBackForce);
         }
     }
 
