@@ -68764,10 +68764,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dragon
       objectReference: {fileID: 0}
-    - target: {fileID: 2935094160892130526, guid: 9d6646d55f1805a44a15c18cd3c981a6, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7535747466589275669, guid: 9d6646d55f1805a44a15c18cd3c981a6, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -68811,14 +68807,6 @@ PrefabInstance:
     - target: {fileID: 7535747466589275669, guid: 9d6646d55f1805a44a15c18cd3c981a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8185899997850973897, guid: 9d6646d55f1805a44a15c18cd3c981a6, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 983328025}
-    - target: {fileID: 8185899997850973897, guid: 9d6646d55f1805a44a15c18cd3c981a6, type: 3}
-      propertyPath: deathAnimationEffect
-      value: fire_explosion
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d6646d55f1805a44a15c18cd3c981a6, type: 3}
@@ -68970,6 +68958,10 @@ PrefabInstance:
     - target: {fileID: 3676006397647659863, guid: d96e09107e7560c4c80fe205df32e439, type: 3}
       propertyPath: m_Name
       value: Lizard
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676006397647659863, guid: d96e09107e7560c4c80fe205df32e439, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d96e09107e7560c4c80fe205df32e439, type: 3}
@@ -70134,6 +70126,10 @@ PrefabInstance:
       propertyPath: gameInterface
       value: 
       objectReference: {fileID: 41445341}
+    - target: {fileID: 9074534985156304876, guid: d6255174be7d53a4d9618cb052ec5a6e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6255174be7d53a4d9618cb052ec5a6e, type: 3}
 --- !u!1 &5104015164945166577
@@ -71158,7 +71154,6 @@ MonoBehaviour:
   maxHealth: 100
   defeated: 0
   lastDamagedTime: 0
-  player: {fileID: 983328025}
   damage: 1
   knockBackForce: 1
   moveSpeed: 10
@@ -71189,7 +71184,6 @@ MonoBehaviour:
   maxHealth: 100
   defeated: 0
   lastDamagedTime: 0
-  player: {fileID: 983328025}
   damage: 1
   knockBackForce: 1
   moveSpeed: 10
@@ -71220,7 +71214,6 @@ MonoBehaviour:
   maxHealth: 100
   defeated: 0
   lastDamagedTime: 0
-  player: {fileID: 983328025}
   damage: 1
   knockBackForce: 1
   moveSpeed: 10
