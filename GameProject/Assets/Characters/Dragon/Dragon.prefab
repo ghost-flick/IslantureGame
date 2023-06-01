@@ -307,7 +307,7 @@ MonoBehaviour:
   targetable: 0
   invulnerable: 0
   gameInterface: {fileID: 8458645655652265871}
-  deathAnimationEffect: 
+  deathAnimationEffect: fire_explosion
   canMove: 1
   maxHealth: 100
   defeated: 0

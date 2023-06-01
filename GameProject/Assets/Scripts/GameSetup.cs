@@ -5,9 +5,16 @@ using UnityEngine;
 public class GameSetup : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    // [SerializeField] DialogManager dialogManager;
+    void Awake()
     {
         GameStateController.DialogMode = false;
         GameStateController.NormalMode = true;
+        // InitializeFirstDialog();
     }
+
+    // public IEnumerator InitializeFirstDialog()
+    // {
+    //     
+    // }
 }

@@ -44,5 +44,5 @@ public abstract class Quest : MonoBehaviour
         currentProgress = cur;
     }
 
-    public abstract void Begin();
+    public abstract void Setup();
 }

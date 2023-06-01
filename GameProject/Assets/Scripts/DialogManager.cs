@@ -10,27 +10,25 @@ using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
-    private TMP_Text textBox;
-    private TMP_Text header;
+    [SerializeField]private TMP_Text textBox;
+    [SerializeField]private TMP_Text header;
+    [SerializeField] private GameObject dialogBox;
     private List<(string, string)> replicas;
     public int lettersPerSecond = 40;
-    [SerializeField] private PlayerController playerController;
     public static DialogManager Instance { get; private set; }
     private Dialog dialog;
     private IEnumerator replicasFlow;
     public UnityEvent orderedActions;
     
     
-    public void Setup()
+    public void Awake()
     {
-        textBox = transform.Find("MainText").GetComponent<TMP_Text>();
-        header = transform.Find("HeaderText").GetComponent<TMP_Text>();
         Instance = this;
     }
 
     public void ShowDialog(Dialog d)
     {
-        gameObject.SetActive(true);
+        dialogBox.SetActive(true);
         GameStateController.EnterDialogMode();
         dialog = d;
         replicas = dialog.Lines;
@@ -51,7 +49,7 @@ public class DialogManager : MonoBehaviour
                 orderedActions.Invoke();
                 replicaIndex = 0;
                 GameStateController.LeaveDialogMode();
-                gameObject.SetActive(false);
+                dialogBox.SetActive(false);
                 yield break;
             }
             var coroutine = StartCoroutine(TypeReplica(replicas[replicaIndex]));

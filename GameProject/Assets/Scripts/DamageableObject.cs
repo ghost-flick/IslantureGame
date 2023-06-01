@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public abstract class DamageableObject : MonoBehaviour
 {
     public UnityEvent eventOnDeath;
-    private int health = 100;
+    [SerializeField] private int health = 100;
     public bool targetable = false;
     public bool invulnerable = false;
     protected Animator animator;
@@ -18,15 +18,16 @@ public abstract class DamageableObject : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     private Image healthBarFill;
     private GameObject healthUI;
-    [SerializeField] private Canvas gameInterface;
+    [SerializeField] protected Canvas gameInterface;
     [SerializeField] private string deathAnimationEffect;
     public bool canMove = true;
 
     private static readonly int Defeated1 = Animator.StringToHash("Defeated");
     private static readonly int Hit1 = Animator.StringToHash("Hit");
-    public float maxHealth = 100;
+    public int maxHealth = 100;
     private bool processingColor;
     public bool defeated;
+    public float lastDamagedTime;
 
 
     public void SetupDamageableObject()
@@ -46,8 +47,11 @@ public abstract class DamageableObject : MonoBehaviour
     {
         set
         {
+            if (value < health)
+                lastDamagedTime = Time.time;
             health = value;
             healthUI.SetActive(!(Math.Abs(health - maxHealth) < 0.5));
+            UpdateHealthBar();
             if (health <= 0)
             {
                 Defeated();
@@ -90,7 +94,6 @@ public abstract class DamageableObject : MonoBehaviour
         }
         animator.SetTrigger(Hit1);
         rb.AddForce(knockBackForce);
-        UpdateHealthBar();
         canMove = true;
     }
 
@@ -105,7 +108,7 @@ public abstract class DamageableObject : MonoBehaviour
     public void UpdateHealthBar()
     {
         if (healthBarFill is not null)
-            healthBarFill.fillAmount = health / maxHealth;
+            healthBarFill.fillAmount = Health / (float)maxHealth;
     }
 
     public void LockMovement()

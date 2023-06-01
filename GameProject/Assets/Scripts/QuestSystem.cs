@@ -20,6 +20,7 @@ public class QuestSystem : MonoBehaviour
             currentQuest = value;
             value.eventOnCompletion ??= new UnityEvent();
             value.eventOnCompletion.AddListener(ShowQuestCompleted);
+            currentQuest.Setup();
         }
         get => currentQuest;
     }

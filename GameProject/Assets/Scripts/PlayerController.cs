@@ -14,12 +14,21 @@ public class PlayerController : PlayerObj
     public ContactFilter2D movementFilter;
     protected SwordAttack swordAttack;
     protected Interaction interaction;
-    private float lastXInput;
-    private float lastYInput;
+    public float lastXInput;
+    public float lastYInput;
+    public float lastXWeapon;
+    public float lastYWeapon;
     private Vector2 movementInput;
     private readonly List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+    private GameObject gameMenu;
+    [SerializeField] private GameObject fireWeapon;
+    public Ak47 akWeapon;
+    private int regenTimeThreshold = 5;
+    private int regenCount = 5;
+    public bool weaponMode;
 
     public static PlayerController Instance;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -28,10 +37,31 @@ public class PlayerController : PlayerObj
         interaction = GetComponentInChildren<Interaction>();
         SetupDamageableObject();
         SetHealth(50);
-        
+        gameMenu = gameInterface.transform.Find("GameMenu").gameObject;
         targetable = true;
         invulnerable = false;
+        StartCoroutine(SecondsCaller());
     }
+
+    private IEnumerator SecondsCaller()
+    {
+        while (!defeated)
+        {
+            yield return new WaitForSeconds(1);
+            if (Time.time - lastDamagedTime > regenTimeThreshold)
+            {
+                Regenerate();
+            }
+        }
+    }
+
+    private void Regenerate()
+    {
+        Health += Math.Min(regenCount, maxHealth - Health);
+        if (Health < maxHealth)
+            effectAnimator.Play("regeneration");
+    }
+
     private void FixedUpdate()
     {
         if (!canMove)
@@ -57,23 +87,25 @@ public class PlayerController : PlayerObj
             }
 
             animator.SetBool("isMoving", success);
-            animator.SetFloat("XInput", lastXInput);
-            animator.SetFloat("YInput", lastYInput);
+            if (!weaponMode)
+                UpdateAnimatorDirection();
         }
         else
         {
             animator.SetBool("isMoving", false);
         }
+    }
 
-        // set direction of sprite to movement direction
-        if (movementInput.x < 0)
-        {
-            spriteRenderer.flipX = true;
-        }
-        else if (movementInput.x > 0)
-        {
-            spriteRenderer.flipX = false;
-        }
+    public void UpdateAnimatorDirection()
+    {
+        animator.SetFloat("XInput", lastXInput);
+        animator.SetFloat("YInput", lastYInput);
+    }
+    
+    public void UpdateAnimatorDirection(Vector2 dir)
+    {
+        animator.SetFloat("XInput", dir.x);
+        animator.SetFloat("YInput", dir.y);
     }
 
     private bool TryMove(Vector2 direction)
@@ -101,16 +133,54 @@ public class PlayerController : PlayerObj
     {
         if (!GameStateController.NormalMode)
             return;
-        animator.SetTrigger("swordAttack");
+        if (!weaponMode)
+            animator.SetTrigger("swordAttack");
+        else
+        {
+            akWeapon.Fire();
+        }
     }
 
     void OnInteract()
     {
-        
         if (GameStateController.NormalMode)
             interaction.Interact(lastXInput, lastYInput);
-        else 
+        else
             actions.Invoke();
+    }
+
+    void OnMenu()
+    {
+        TogglePause();
+    }
+
+    private void OpenGameMenu(bool flag)
+    {
+        gameMenu.gameObject.SetActive(flag);
+    }
+
+    private void TogglePause()
+    {
+        if (Math.Abs(Time.timeScale - 1) < 0.1)
+        {
+            OpenGameMenu(true);
+            PauseGame();
+        }
+        else
+        {
+            OpenGameMenu(false);
+            ResumeGame();
+        }
+    }
+
+    void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    void ResumeGame()
+    {
+        Time.timeScale = 1;
     }
 
     public void EnterDialog()
@@ -127,5 +197,12 @@ public class PlayerController : PlayerObj
     void EndSwordAttack()
     {
         UnlockMovement();
+    }
+
+    public void TakeLegendaryWeapon()
+    {
+        animator.Play("weapon_idle");
+        var weapon = Instantiate(fireWeapon, transform, false);
+        weapon.transform.localPosition = new Vector3(0, -0.04f);
     }
 }

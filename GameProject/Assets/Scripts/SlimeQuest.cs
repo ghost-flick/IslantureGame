@@ -26,7 +26,7 @@ public class SlimeQuest : Quest
         progressCheckable = true;
     }
 
-    public override void Begin()
+    public override void Setup()
     {
         foreach (var slime in slimes)
             slime.gameObject.SetActive(true);

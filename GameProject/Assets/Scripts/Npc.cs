@@ -78,6 +78,5 @@ public class Npc : MonoBehaviour, IInteractable
         if (currentQuest is null) return;
         awaitingQuest = true;
         questSystem.Quest = currentQuest; // here happens setting magic
-        currentQuest.Begin();
     }
 }
