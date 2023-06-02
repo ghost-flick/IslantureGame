@@ -126,6 +126,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+  lifetime: 5
 --- !u!58 &7582754248449537182
 CircleCollider2D:
   m_ObjectHideFlags: 0

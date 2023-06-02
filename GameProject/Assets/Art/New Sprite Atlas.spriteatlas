@@ -1427,10 +1427,36 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0cf22d0428688954f876d56e2eb81f03, type: 3}
   - {fileID: 21300000, guid: ef2f6d043ed0ac743997313df8cb3406, type: 3}
   - {fileID: 21300000, guid: fa874e04c0465d64d97e00922620bbf7, type: 3}
-  - {fileID: 21300000, guid: 6c84021416ebaa049ad5a88b163d9c24, type: 3}
   - {fileID: 21300000, guid: 7ac824147ce7a874cbe584e5ab04a907, type: 3}
   - {fileID: 21300000, guid: edaaa3245a9996646ac1434abfb83816, type: 3}
-  - {fileID: 21300000, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: 167794525, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -646450206, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -681345171, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: 2065980955, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -114051484, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: 493186180, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -1401516743, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: 383551814, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -1481748962, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: 1001825536, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -1408574946, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -2129179273, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: 937327038, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -786605655, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -1504458362, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -1781005822, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -1007881701, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: 1109405152, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -2081270297, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: 368951043, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -1517397073, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -1333344905, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: 2130616151, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: 2083262557, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: 757929755, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -1287104994, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -1804235582, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
+  - {fileID: -258774510, guid: 4ac6f624aa0b93c4e90a49ab744800d6, type: 3}
   - {fileID: 21300000, guid: f1104824e6fbbc04cb4250cdbca9db8b, type: 3}
   - {fileID: 21300000, guid: 7096e824f6f6aa84084a6a59fd2e55a6, type: 3}
   - {fileID: 21300000, guid: e02c9924f2f157c45b1ca3da4d03ea30, type: 3}
@@ -2287,6 +2313,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 05166597863781747984097e2e34a5b3, type: 3}
   - {fileID: 21300000, guid: 1d08c697dc6c6234b8f49cf32e9c36ec, type: 3}
   - {fileID: 21300000, guid: 538d2d973cdc99a4881cf8a741be6dff, type: 3}
+  - {fileID: -1724090970, guid: 7c0d21a769bd56b46a018ea3e69e1ef3, type: 3}
+  - {fileID: 192895621, guid: 7c0d21a769bd56b46a018ea3e69e1ef3, type: 3}
   - {fileID: 21300000, guid: d58c95a799717f348bfe08cf2bc9958a, type: 3}
   - {fileID: 21300000, guid: bb4978a7621299740b6c6cdb1d12f828, type: 3}
   - {fileID: 21300000, guid: 8180a8a7262e8574cb333eaeb9791015, type: 3}
@@ -4562,10 +4590,36 @@ SpriteAtlas:
   - FacesetBox
   - 1_30
   - 1_2
-  - UiIcons
   - Faceset
   - Faceset
-  - SpriteSheet
+  - SpriteSheet_13
+  - SpriteSheet_12
+  - SpriteSheet_11
+  - SpriteSheet_10
+  - SpriteSheet_26
+  - SpriteSheet_17
+  - SpriteSheet_27
+  - SpriteSheet_16
+  - SpriteSheet_24
+  - SpriteSheet_15
+  - SpriteSheet_25
+  - SpriteSheet_14
+  - SpriteSheet_22
+  - SpriteSheet_23
+  - SpriteSheet_20
+  - SpriteSheet_19
+  - SpriteSheet_21
+  - SpriteSheet_18
+  - SpriteSheet_0
+  - SpriteSheet_1
+  - SpriteSheet_2
+  - SpriteSheet_3
+  - SpriteSheet_4
+  - SpriteSheet_5
+  - SpriteSheet_6
+  - SpriteSheet_7
+  - SpriteSheet_8
+  - SpriteSheet_9
   - Preview
   - free_anim_autotile_2
   - Faceset
@@ -5422,6 +5476,8 @@ SpriteAtlas:
   - IdlePreview
   - Jump
   - AssasinTemplate
+  - idle_0
+  - idle_1
   - Special2
   - Preview
   - Preview

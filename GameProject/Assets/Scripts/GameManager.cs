@@ -9,18 +9,21 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     // [SerializeField] DialogManager dialogManager;
     private List<Dialog> commonDialogs;
-    IEnumerator Start()
+    public int dialogIndex=1;
+    void Start()
     {
         commonDialogs = Directory.GetFiles("Assets/Dialogs/Player/CommonDialogs", "*.txt")
             .Select(File.ReadAllLines)
             .Select(fileLines => new Dialog(fileLines)).ToList();
-        yield return new WaitForSeconds(3);
-        var quest = transform.Find(commonDialogs.First().GetQuestToStartAfter())?.GetComponent<Quest>();
-        // StartFirstDialog(quest);
+        // ShowNextPlayerDialog();
     }
 
-    public void StartFirstDialog(Quest quest)
+    public IEnumerator ShowNextPlayerDialog()
     {
-        DialogManager.Instance.ShowDialog(commonDialogs.First(), null, quest);
+        if (dialogIndex > commonDialogs.Count)
+            yield break;
+        yield return new WaitForSeconds(3);
+        DialogManager.Instance.ShowDialog(commonDialogs[dialogIndex], null);
+        dialogIndex++;
     }
 }

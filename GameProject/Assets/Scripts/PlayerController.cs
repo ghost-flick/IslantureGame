@@ -28,6 +28,10 @@ public class PlayerController : PlayerObj
     public bool weaponMode;
 
     public static PlayerController Instance;
+    private static readonly int Attack = Animator.StringToHash("swordAttack");
+    private static readonly int XInput = Animator.StringToHash("XInput");
+    private static readonly int YInput = Animator.StringToHash("YInput");
+    private static readonly int IsMoving = Animator.StringToHash("isMoving");
 
     // Start is called before the first frame update
     private void Awake()
@@ -86,26 +90,26 @@ public class PlayerController : PlayerObj
                 success = TryMove((new Vector2(0, lastYInput)));
             }
 
-            animator.SetBool("isMoving", success);
+            animator.SetBool(IsMoving, success);
             if (!weaponMode)
                 UpdateAnimatorDirection();
         }
         else
         {
-            animator.SetBool("isMoving", false);
+            animator.SetBool(IsMoving, false);
         }
     }
 
     public void UpdateAnimatorDirection()
     {
-        animator.SetFloat("XInput", lastXInput);
-        animator.SetFloat("YInput", lastYInput);
+        animator.SetFloat(XInput, lastXInput);
+        animator.SetFloat(YInput, lastYInput);
     }
-    
+
     public void UpdateAnimatorDirection(Vector2 dir)
     {
-        animator.SetFloat("XInput", dir.x);
-        animator.SetFloat("YInput", dir.y);
+        animator.SetFloat(XInput, dir.x);
+        animator.SetFloat(YInput, dir.y);
     }
 
     private bool TryMove(Vector2 direction)
@@ -134,7 +138,7 @@ public class PlayerController : PlayerObj
         if (!GameStateController.NormalMode)
             return;
         if (!weaponMode)
-            animator.SetTrigger("swordAttack");
+            animator.SetTrigger(Attack);
         else
         {
             akWeapon.Fire();
@@ -185,7 +189,7 @@ public class PlayerController : PlayerObj
 
     public void EnterDialog()
     {
-        animator.SetBool("isMoving", false);
+        animator.SetBool(IsMoving, false);
     }
 
     void SwordAttack()

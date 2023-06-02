@@ -5,7 +5,6 @@ using UnityEngine;
 public static class GameStateController
 {
     public static bool DialogMode = false;
-
     public static bool NormalMode = true;
     // Start is called before the first frame update
     public static void EnterDialogMode()

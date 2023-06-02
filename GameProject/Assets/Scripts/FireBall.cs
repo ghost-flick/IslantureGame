@@ -11,6 +11,7 @@ public class FireBall : MonoBehaviour
     [SerializeField] private int knockBackForce = 10;
     private Rigidbody2D rb;
     private Animator animator;
+    private Collider2D thisCollider;
     [SerializeField]private LayerMask enemyLayer;
     private static readonly int Gotcha = Animator.StringToHash("Gotcha");
     
@@ -26,6 +27,7 @@ public class FireBall : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        thisCollider = GetComponent<Collider2D>();
         rb.velocity = direction * speed; 
     }
 
@@ -36,6 +38,7 @@ public class FireBall : MonoBehaviour
             return;
         var player = collision.gameObject.GetComponentInParent<PlayerController>();
         rb.velocity = Vector2.zero;
+        thisCollider.enabled = false;
         animator.SetTrigger(Gotcha);
         if (player is not null)
         {

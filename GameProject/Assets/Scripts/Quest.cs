@@ -27,6 +27,7 @@ public abstract class Quest : MonoBehaviour
             {
                 isCompleted = true;
                 eventOnCompletion.Invoke();
+                QuestSystem.completedQuests.Add(this);
             }
         }
         get => currentProgress;

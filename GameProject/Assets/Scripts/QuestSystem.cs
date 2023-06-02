@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,10 +11,12 @@ public class QuestSystem : MonoBehaviour
     [SerializeField] private TMP_Text questTitleText;
     [SerializeField] private TMP_Text questInfoText;
     [SerializeField] private TMP_Text questProgress;
+    public static List<Quest> completedQuests;
     public static QuestSystem Instance { get; private set; }
 
     public void Start()
     {
+        completedQuests = new List<Quest>();
         Instance = this;
     }
 

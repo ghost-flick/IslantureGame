@@ -315,7 +315,8 @@ MonoBehaviour:
   lastDamagedTime: 0
   damage: 1
   knockBackForce: 1
-  moveSpeed: 0
+  moveSpeed: 50
+  direction: {x: 0, y: 0}
   attackingState: 0
   chasingState: 0
   bigFireBall: {fileID: 2313905557825413171, guid: 8588e986428ac6240a0edc2c57d3f7bc, type: 3}
@@ -427,7 +428,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 1
 --- !u!114 &2711756571865857849
 MonoBehaviour:
   m_ObjectHideFlags: 0

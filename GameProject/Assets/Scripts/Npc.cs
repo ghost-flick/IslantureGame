@@ -13,13 +13,15 @@ using File = System.IO.File;
 public class Npc : MonoBehaviour, IInteractable
 {
     [SerializeField] private Dialog currentDialog;
-    [SerializeField] private Quest currentQuest;
+    private Quest currentQuest;
     protected List<Dialog> commonDialogs;
     protected List<Dialog> defaultDialogs;
     protected List<Dialog> afterDialogs;
     static System.Random rnd;
     private int dialogIndex;
     private bool awaitingQuest;
+    [SerializeField] public string npcName;
+    [SerializeField] public int threshold;
 
     public void Start()
     {
@@ -29,13 +31,13 @@ public class Npc : MonoBehaviour, IInteractable
 
     private void InitializeDialogs()
     {
-        afterDialogs = Directory.GetFiles("Assets/Dialogs/OldMan/AfterDialogs", "*.txt")
+        afterDialogs = Directory.GetFiles($"Assets/Dialogs/{npcName}/AfterDialogs", "*.txt")
             .Select(File.ReadAllLines)
             .Select(fileLines => new Dialog(fileLines)).ToList();
-        commonDialogs = Directory.GetFiles("Assets/Dialogs/OldMan/CommonDialogs", "*.txt")
+        commonDialogs = Directory.GetFiles($"Assets/Dialogs/{npcName}/CommonDialogs", "*.txt")
             .Select(File.ReadAllLines)
             .Select(fileLines => new Dialog(fileLines)).ToList();
-        defaultDialogs = Directory.GetFiles("Assets/Dialogs/OldMan/DefaultDialogs", "*.txt")
+        defaultDialogs = Directory.GetFiles($"Assets/Dialogs/{npcName}/DefaultDialogs", "*.txt")
             .Select(File.ReadAllLines)
             .Select(fileLines => new Dialog(fileLines)).ToList();
     }
@@ -44,19 +46,19 @@ public class Npc : MonoBehaviour, IInteractable
     {
         if (awaitingQuest)
         {
-            if (currentQuest.isCompleted)
+            if (QuestSystem.completedQuests.Contains(currentQuest))
             {
                 awaitingQuest = false;
                 QuestSystem.Instance.HideQuest();
             }
             else
             {
-                DialogManager.Instance.ShowDialog(afterDialogs[dialogIndex-1], null, null);
+                DialogManager.Instance.ShowDialog(afterDialogs[dialogIndex-1], null);
                 return;
             }
         }
 
-        if (dialogIndex >= commonDialogs.Count)
+        if (dialogIndex >= commonDialogs.Count || dialogIndex == threshold)
         {
             var dialogNum = rnd.Next(defaultDialogs.Count);
             currentDialog = defaultDialogs[dialogNum];
@@ -66,12 +68,15 @@ public class Npc : MonoBehaviour, IInteractable
             currentDialog = commonDialogs[dialogIndex];
             dialogIndex++;
         }
-        
-        currentQuest = transform.Find(currentDialog.questToStartAfter)?.gameObject.GetComponent<Quest>();
-        DialogManager.Instance.ShowDialog(currentDialog, StartNewQuest, currentQuest);
+        if (dialogIndex < commonDialogs.Count)
+            DialogManager.Instance.ShowDialog(currentDialog, BeginAwaitingResults);
+        else
+        {
+            DialogManager.Instance.ShowDialog(currentDialog, null);
+        }
     }
-    
-    public void StartNewQuest()
+
+    public void BeginAwaitingResults()
     {
         if (currentQuest is null) return;
         awaitingQuest = true;

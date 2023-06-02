@@ -10,7 +10,7 @@ using Random = Unity.Mathematics.Random;
 
 public class Dragon : Enemy, IBehaviour
 {
-    protected Vector3 direction;
+    public Vector2 direction;
     public bool attackingState = false;
     public bool chasingState = false;
     private static readonly int Xdir = Animator.StringToHash("Xdir");
