@@ -40,7 +40,7 @@ public class PlayerController : PlayerObj
         swordAttack = GetComponentInChildren<SwordAttack>();
         interaction = GetComponentInChildren<Interaction>();
         SetupDamageableObject();
-        SetHealth(50);
+        SetHealth(100);
         gameMenu = gameInterface.transform.Find("GameMenu").gameObject;
         targetable = true;
         invulnerable = false;

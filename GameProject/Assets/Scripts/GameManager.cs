@@ -9,13 +9,18 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     // [SerializeField] DialogManager dialogManager;
     private List<Dialog> commonDialogs;
-    public int dialogIndex=1;
+    public int dialogIndex;
     void Start()
     {
         commonDialogs = Directory.GetFiles("Assets/Dialogs/Player/CommonDialogs", "*.txt")
             .Select(File.ReadAllLines)
             .Select(fileLines => new Dialog(fileLines)).ToList();
-        // ShowNextPlayerDialog();
+        ShowNextDialog();
+    }
+
+    public void ShowNextDialog()
+    {
+        StartCoroutine(ShowNextPlayerDialog());
     }
 
     public IEnumerator ShowNextPlayerDialog()

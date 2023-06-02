@@ -26,7 +26,7 @@ public class LegendaryWeapon : MonoBehaviour, IInteractable
         if (progress < dragons.Count)
             return;
         player.TakeLegendaryWeapon();
-        StartCoroutine(gameManager.ShowNextPlayerDialog());
+        gameManager.ShowNextDialog();
         Destroy(gameObject);
     }
 

@@ -13,7 +13,7 @@ using File = System.IO.File;
 public class Npc : MonoBehaviour, IInteractable
 {
     [SerializeField] private Dialog currentDialog;
-    private Quest currentQuest;
+    private string currentQuest;
     protected List<Dialog> commonDialogs;
     protected List<Dialog> defaultDialogs;
     protected List<Dialog> afterDialogs;
@@ -68,17 +68,22 @@ public class Npc : MonoBehaviour, IInteractable
             currentDialog = commonDialogs[dialogIndex];
             dialogIndex++;
         }
-        if (dialogIndex < commonDialogs.Count)
-            DialogManager.Instance.ShowDialog(currentDialog, BeginAwaitingResults);
-        else
+
+        if (dialogIndex == 1)
         {
-            DialogManager.Instance.ShowDialog(currentDialog, null);
+            BeginAwaitingResults();
         }
+        DialogManager.Instance.ShowDialog(currentDialog, null);
+        currentQuest = currentDialog.questToStartAfter;
     }
 
     public void BeginAwaitingResults()
     {
-        if (currentQuest is null) return;
         awaitingQuest = true;
+    }
+
+    public void FinishAwaitingResults()
+    {
+        awaitingQuest = false;
     }
 }

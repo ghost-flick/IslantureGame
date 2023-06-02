@@ -2860,6 +2860,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 3ca2ff9c6f6e5ef44bd1319f65cdc2df, type: 3}
   - {fileID: 21300000, guid: a9be10ac781907545ad858e0a68ca4d3, type: 3}
   - {fileID: 21300000, guid: def502ac74fa3b64ea7c14e292e8863a, type: 3}
+  - {fileID: 21300000, guid: 6146e2acbe30cdc4085efa4d177b235c, type: 3}
   - {fileID: 21300000, guid: 711733aca34be184ba8cad029b551b74, type: 3}
   - {fileID: 21300000, guid: 32fa9facd2a081d4296752387be5e840, type: 3}
   - {fileID: 21300000, guid: da7581bc524132845a81e36d5b729fac, type: 3}
@@ -6023,6 +6024,7 @@ SpriteAtlas:
   - PurpleTower
   - no health
   - RedTower
+  - maxresdefault_live-423871590
   - Sprite
   - MegaSlimeGreen
   - Idle

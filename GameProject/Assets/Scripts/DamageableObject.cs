@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public abstract class DamageableObject : MonoBehaviour
 {
     public UnityEvent eventOnDeath;
-    [SerializeField] private int health = 100;
+    [SerializeField] private int health;
     public bool targetable = false;
     public bool invulnerable = false;
     protected Animator animator;
@@ -24,7 +24,7 @@ public abstract class DamageableObject : MonoBehaviour
 
     private static readonly int Defeated1 = Animator.StringToHash("Defeated");
     private static readonly int Hit1 = Animator.StringToHash("Hit");
-    public int maxHealth = 100;
+    public int maxHealth;
     private bool processingColor;
     public bool defeated;
     public float lastDamagedTime;

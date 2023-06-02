@@ -21,8 +21,8 @@ public class Slime : Enemy, IBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         SetupDamageableObject();
-        SetHealth(100);
-        damage = 5;
+        SetHealth(150);
+        damage = 10;
         knockBackForce = 10f;
         moveSpeed = 500f;
     }

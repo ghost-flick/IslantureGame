@@ -29,7 +29,7 @@ public class Dragon : Enemy, IBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         SetupDamageableObject();
         SetHealth(200);
-        damage = 2;
+        damage = 10;
         knockBackForce = 10f;
         moveSpeed = 500f;
     }

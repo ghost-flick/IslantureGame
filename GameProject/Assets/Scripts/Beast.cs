@@ -25,8 +25,8 @@ public class Beast : Enemy, IBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         SetupDamageableObject();
-        SetHealth(50);
-        damage = 5;
+        SetHealth(100);
+        damage = 15;
         knockBackForce = 10f;
         moveSpeed = 500f;
     }

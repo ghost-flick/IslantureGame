@@ -56,8 +56,8 @@ public class QuestLizard : Enemy
         collider2Offset = collider2.offset;
         
         SetupDamageableObject();
-        SetHealth(50);
-        damage = 5;
+        SetHealth(150);
+        damage = 10;
         knockBackForce = 30f;
         moveSpeed = 500f;
     }
@@ -164,11 +164,10 @@ public class QuestLizard : Enemy
         {
             LeaveDialogMove();
             npc.threshold += 1;
-            StartCoroutine(gameManager.ShowNextPlayerDialog());
+            gameManager.ShowNextDialog();
         });
-        while (dialogState == true)
+        while (dialogState)
             yield return new WaitForSeconds(5);
-        yield return new WaitForSeconds(5);
         Destroy(gameObject);
     }
 }

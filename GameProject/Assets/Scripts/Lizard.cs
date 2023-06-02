@@ -46,8 +46,8 @@ public class Lizard : Enemy
         collider2Offset = collider2.offset;
         
         SetupDamageableObject();
-        SetHealth(50);
-        damage = 5;
+        SetHealth(150);
+        damage = 15;
         knockBackForce = 30f;
         moveSpeed = 500f;
     }
@@ -55,7 +55,7 @@ public class Lizard : Enemy
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (attackState)
+        if (attackState || defeated)
             return;
         playerPosition = player.position;
         thisPosition = transform.position;
